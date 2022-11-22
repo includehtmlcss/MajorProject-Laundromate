@@ -26,6 +26,7 @@ const star = require("../assets/icons/star.png")
 const wallet = require("../assets/icons/wallet.png")
 const help = require("../assets/icons/help.png")
 const cancel = require("../assets/icons/cross.png")
+const rating = require("../assets/icons/rating.png")
 
 export default {
     coupon,
@@ -55,5 +56,6 @@ export default {
     star,
     wallet,
     help,
-    cancel
+    cancel,
+    rating
 }

@@ -5,20 +5,17 @@ import {
 	TouchableOpacity,
 	Image,
 	TextInput,
-	FlatList
+	FlatList,
 } from 'react-native';
-
 import FilterModal from './FilterModal';
 import { HorizontalClothesCard, VerticalClothesCard } from "../../components";
-import { color } from 'react-native-reanimated';
 import {
 	FONTS,
 	SIZES,
 	COLORS,
-	icons,
-	dummyData
+	icons
 } from "../../constants";
-
+import { useNavigation } from '@react-navigation/native';
 import { location } from '../Authentication/SignUp';
 
 const Section = ({ title, onPress, children }) => {
@@ -37,13 +34,13 @@ const Section = ({ title, onPress, children }) => {
 					{title}
 				</Text>
 
-				<TouchableOpacity
+				{/* <TouchableOpacity
 					onPress={onPress}
 				>
 					<Text style={{ color: COLORS.primary, ...FONTS.body3 }}>
 						Show All
 					</Text>
-				</TouchableOpacity>
+				</TouchableOpacity> */}
 
 			</View>
 
@@ -55,41 +52,8 @@ const Section = ({ title, onPress, children }) => {
 
 const Home = () => {
 
-	const [selectedCategoryId, setSelectedCategoryId] = React.useState(1);
-	const [selectedMenuType, setSelectedMenuType] = React.useState(1);
-	const [popular, setPopular] = React.useState([]);
-	const [recommends, setRecommends] = React.useState([]);
-	const [menuList, setMenuList] = React.useState([]);
-
+	const navigation = useNavigation();
 	const [showFilterModal, setShowFilterModal] = React.useState(false);
-
-	React.useEffect(() => {
-		handleChangeCategory(selectedCategoryId, selectedMenuType)
-	}, []);
-
-	//Handler
-
-	function handleChangeCategory(categoryId, menuTypeId) {
-		// Retrieve the popular menu
-		let selectedPopular = dummyData.menu.find(a => a.name == "Popular")
-
-		// Retrieve the recommended menu
-		let selectedRecommend = dummyData.menu.find(a => a.name == "Recommended")
-
-		// Find menu based on the menu type id
-		let selectedMenu = dummyData.menu.find(a => a.id == menuTypeId)
-
-		// Set the popular menu based on the categoryId 
-		setPopular(selectedPopular.list.filter(a => a.categories.includes(categoryId)))
-
-		// Set the recommended menu based on the category id
-		setRecommends(selectedRecommend.list.filter(a => a.categories.includes(categoryId)))
-
-		//Set the menu based on the category id
-		setMenuList(selectedMenu.list.filter(a => a.categories.includes(categoryId)))
-
-	}
-
 	// Render
 
 	function renderSearch() {
@@ -148,151 +112,6 @@ const Home = () => {
 		)
 	}
 
-	function renderMenuTypes() {
-		return (
-			<FlatList
-				horizontal
-				data={dummyData.menu}
-				keyExtractor={item => `${item.id}`}
-				showsHorizontalScrollIndicator={false}
-				contentContainerStyle={{
-					marginTop: 30,
-					marginBottom: 20
-				}}
-				renderItem={({ item, index }) => (
-					<TouchableOpacity
-						style={{
-							marginLeft: SIZES.padding,
-							marginRight: index == dummyData.menu.length - 1 ? SIZES.padding : 0
-						}}
-						onPress={() => {
-							setSelectedMenuType(item.id)
-							handleChangeCategory(selectedCategoryId, item.id)
-						}}
-					>
-						<Text
-							style={{
-								color: selectedMenuType == item.id ? COLORS.primary : COLORS.black,
-								...FONTS.h3
-							}}
-						>
-							{item.name}
-						</Text>
-					</TouchableOpacity>
-				)}
-			/>
-		)
-	}
-
-	function renderRecommendedSection() {
-		return (
-			<Section
-				title="Laundry At The Best Rates"
-				onPress={() => console.log("Show all recommended")}
-			>
-				<FlatList
-					data={recommends}
-					keyExtractor={item => `${item.id}`}
-					horizontal
-					showsHorizontalScrollIndicator={false}
-					renderItem={({ item, index }) => (
-						<HorizontalClothesCard
-							containerStyle={{
-								height: 180,
-								width: SIZES.width * 0.85,
-								marginLeft: index == 0 ? SIZES.padding : 18,
-								marginRight: index == recommends.length - 1 ? SIZES.padding : 0,
-								paddingRight: SIZES.radius,
-								alignItems: 'center'
-							}}
-							imageStyle={{
-								marginTop: 35,
-								height: 150,
-								width: 150
-							}}
-							item={item}
-							onPress={() => console.log("HorizontalClothesCard")}
-						/>
-					)}
-				/>
-			</Section>
-		)
-	}
-
-	function renderPopularSection() {
-		return (
-			<Section
-				title="Popular Services"
-				onPress={() => console.log("Show all popular items")}
-			>
-				<FlatList
-					data={popular}
-					keyExtractor={item => `${item.id}`}
-					horizontal
-					showsHorizontalScrollIndicator={false}
-					renderItem={({ item, index }) => (
-						<VerticalClothesCard
-							containerStyle={{
-								marginLeft: index == 0 ? SIZES.padding : 18,
-								marginRight: index == popular.length - 1 ? SIZES.padding : 0
-							}}
-							item={item}
-							onPress={() => console.log("Vertical Clothes Card")}
-						/>
-					)}
-				/>
-			</Section>
-		)
-	}
-
-	function renderClothesCategories() {
-		return (
-			<FlatList
-				data={dummyData.categories}
-				keyExtractor={item => `${item.id}`}
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				renderItem={({ item, index }) => (
-					<TouchableOpacity
-						style={{
-							flexDirection: 'row',
-							height: 55,
-							marginTop: SIZES.padding,
-							marginLeft: index == 0 ? SIZES.padding : SIZES.radius,
-							marginRight: index == dummyData.categories.length - 1 ? SIZES.padding : 0,
-							paddingHorizontal: 8,
-							borderRadius: SIZES.radius,
-							backgroundColor: selectedCategoryId == item.id ? COLORS.primary : COLORS.lightGray2
-						}}
-						onPress={() => {
-							setSelectedCategoryId(item.id)
-							handleChangeCategory(item.id, selectedMenuType)
-						}}
-					>
-						<Image
-							source={item.icon}
-							style={{
-								marginTop: 5,
-								height: 50,
-								width: 50
-							}}
-						/>
-						<Text
-							style={{
-								alignSelf: 'center',
-								marginRight: SIZES.base,
-								color: selectedCategoryId == item.id ? COLORS.white : COLORS.darkGray,
-								...FONTS.h3
-							}}
-						>
-							{item.name}
-						</Text>
-					</TouchableOpacity>
-				)}
-			/>
-		)
-	}
-
 	function renderPickUpFrom() {
 		return (
 			<View
@@ -334,6 +153,78 @@ const Home = () => {
 		)
 	}
 
+	// Data
+
+	const topRatedLaundries = [{
+		id: 1,
+		name: "Suresh Laundry",
+		description: "Starting at",
+		price: "7/item",
+		Times: 78,
+		isFavourite: true,
+		image: require("../../assets/dummyData/regularwash.png"),
+		rating: 4,
+		latitude: 20.555,
+		longitude: 76.222
+	}, {
+		id: 2,
+		name: "Ramesh Cleaners",
+		description: "Starting at",
+		price: "7/item",
+		Times: 102,
+		isFavourite: true,
+		image: require("../../assets/dummyData/woolencare.png"),
+		rating: 3.8,
+		latitude: 24.22,
+		longitude: 70.11
+	}, {
+		id: 3,
+		name: "Cloth Care",
+		description: "Starting at",
+		price: "7/item",
+		Times: 94,
+		isFavourite: true,
+		image: require("../../assets/dummyData/dryclean.png"),
+		rating: 3.6,
+		latitude: 21.33,
+		longitude: 72.123
+	}];
+
+	const nearbyLaundries = [{
+		id: 1,
+		name: "Suresh Laundry",
+		description: "Starting at",
+		price: "7/item",
+		Times: 78,
+		isFavourite: true,
+		image: require("../../assets/dummyData/regularwash.png"),
+		rating: 4,
+		latitude: 20.555,
+		longitude: 76.222
+	}, {
+		id: 2,
+		name: "Ramesh Cleaners",
+		description: "Starting at",
+		price: "7/item",
+		Times: 102,
+		isFavourite: true,
+		image: require("../../assets/dummyData/woolencare.png"),
+		rating: 3.8,
+		latitude: 24.22,
+		longitude: 70.11
+	}, {
+		id: 3,
+		name: "Cloth Care",
+		description: "Starting at",
+		price: "7/item",
+		Times: 94,
+		isFavourite: true,
+		image: require("../../assets/dummyData/dryclean.png"),
+		rating: 3.6,
+		latitude: 21.33,
+		longitude: 72.123
+	}];
+
 	return (
 		<View
 			style={{
@@ -353,50 +244,77 @@ const Home = () => {
 					onClose={() => setShowFilterModal(false)}
 				/>
 			}
-
-			{/* List */}
 			<FlatList
-				data={menuList}
-				keyExtractor={(item) => `${item.id}`}
+				data={nearbyLaundries}
 				showsVerticalScrollIndicator={false}
 				ListHeaderComponent={
-					<View>
-						{/* Picking up from */}
-						{/* Clothes Categories */}
-						{/* {renderClothesCategories()} */}
-						{/* Popular */}
-						{renderPopularSection()}
-						{/* Recommended */}
-						{renderRecommendedSection()}
-						{/* Menu Type */}
-						{renderMenuTypes()}
+					<View
+						style={{
+							marginTop: -20
+						}}
+					>
+						{/* TOP RATED LAUNDRIES */}
+						<Section
+							title="Top Rated Laundries"
+							onPress={() => console.log("Show All Top Rated Laundries")}
+						>
+							<FlatList
+								data={topRatedLaundries}
+								keyExtractor={item => `${item.id}`}
+								horizontal
+								showsHorizontalScrollIndicator={false}
+								renderItem={({ item, index }) => (
+									<VerticalClothesCard
+										containerStyle={{
+											marginLeft: index == 0 ? SIZES.padding : 18,
+											marginRight: index == topRatedLaundries.length - 1 ? SIZES.padding : 0
+										}}
+										item={item}
+										onPress={() => console.log("Top Rated Laundry No." + item.id)}
+									/>
+								)}
+							/>
+						</Section>
+
+						{/* LAUNDRIES NEARBY ME */}
+
+						<Section
+							title="Laundries Nearby Me"
+							onPress={() => console.log("Show All Laundries Nearby Me")}
+						>
+							<FlatList
+								data={nearbyLaundries}
+								keyExtractor={item => `${item.id}`}
+								horizontal
+								showsHorizontalScrollIndicator={false}
+								renderItem={({ item, index }) => (
+									<HorizontalClothesCard
+										containerStyle={{
+											height: 180,
+											width: SIZES.width * 0.85,
+											marginLeft: index == 0 ? SIZES.padding : 18,
+											marginRight: index == nearbyLaundries.length - 1 ? SIZES.padding : 0,
+											paddingRight: SIZES.radius,
+											alignItems: 'center'
+										}}
+										imageStyle={{
+											marginTop: 35,
+											height: 150,
+											width: 150
+										}}
+										item={item}
+										onPress={() => console.log("Laundry Near Me No." + item.id)}
+									/>
+								)}
+							/>
+						</Section>
 					</View>
 				}
-				renderItem={({ item, index }) => {
-					return (
-						<HorizontalClothesCard
-							containerStyle={{
-								height: 130,
-								alignItems: 'center',
-								marginHorizontal: SIZES.padding,
-								marginBottom: SIZES.radius
-							}}
-							imageStyle={{
-								marginTop: 20,
-								height: 110,
-								width: 110
-							}}
-							item={item}
-							onPress={() => console.log("HorizontalClothesCard")}
-						/>
-					)
-				}}
 				ListFooterComponent={
-					<View style={{ height: 230 }} />
+					<View style={{ height: 240 }} />
 				}
 			/>
 		</View>
 	)
 }
-
 export default Home;

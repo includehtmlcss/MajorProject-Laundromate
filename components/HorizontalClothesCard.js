@@ -6,8 +6,12 @@ import {
     Image
 } from "react-native";
 import { COLORS, FONTS, SIZES, icons } from "../constants";
+import { userLatitude, userLongitude } from "../screens/Authentication/SignUp";
 
 const HorizontalClothesCard = ({ containerStyle, imageStyle, item, onPress }) => {
+    console.log(userLatitude+" "+userLongitude)
+    console.log(item.latitude+" "+item.longitude)
+    console.log()
     return (
         <TouchableOpacity
             style={{
@@ -16,6 +20,7 @@ const HorizontalClothesCard = ({ containerStyle, imageStyle, item, onPress }) =>
                 backgroundColor: COLORS.lightGray2,
                 ...containerStyle
             }}
+            onPress={onPress}
         >
             {/* Image */}
             <Image
@@ -36,12 +41,26 @@ const HorizontalClothesCard = ({ containerStyle, imageStyle, item, onPress }) =>
 
                 {/* Description */}
                 <Text style={{ color: COLORS.darkGray2, ...FONTS.body4 }}>
-                    {item.description}
+                    Located At
+                    {/* {item.location} */}
                 </Text>
 
                 {/* Price */}
                 <Text style={{ marginTop: SIZES.base, ...FONTS.h2 }}>
-                    ₹{item.price}
+                    <Image
+                        source={icons.location}
+                        style={{
+                            width: 20,
+                            height: 20,
+                            tintColor: COLORS.primary
+                        }}
+                    />
+                    {Math.round(
+                        (Math.sqrt(
+                            Math.pow(item.longitude-userLongitude,2) + 
+                            Math.pow(item.latitude-userLatitude,2)
+                        ))*100
+                    )/100} Kms
                 </Text>
 
             </View>

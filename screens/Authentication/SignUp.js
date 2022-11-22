@@ -15,7 +15,7 @@ import { utils } from '../../utils';
 import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from "react-native";
 
-var location;
+var location,userLatitude,userLongitude;
 const SignUp = ({ navigation }) => {
 	const [email, setEmail] = React.useState('')
 	const [name, setName] = React.useState('')
@@ -23,7 +23,8 @@ const SignUp = ({ navigation }) => {
 	const [nameError, setNameError] = React.useState('')
 
 	function isEnableSignUp() {
-		return email != '' && name != '' && emailError == '' && nameError == '' && latitude != 0 && longitude != 0
+		return email != '' && name != '' && emailError == '' && nameError == ''
+		// && latitude != 0 && longitude != 0
 	}
 
 	const [latitude, setLatitude] = React.useState(0);
@@ -174,6 +175,8 @@ const SignUp = ({ navigation }) => {
 					onPress={() => {
 						navigation.navigate("Home");
 						location = address;
+						userLatitude=latitude;
+						userLongitude=longitude;
 					}}
 				/>
 			</View>
@@ -181,5 +184,5 @@ const SignUp = ({ navigation }) => {
 	)
 
 }
-export { location };
+export { location,userLatitude,userLongitude };
 export default SignUp;
