@@ -104,7 +104,7 @@ const Home = () => {
 					paddingHorizontal: SIZES.radius,
 					borderRadius: SIZES.radius,
 					backgroundColor: COLORS.lightGray2,
-					marginBottom: -1,
+					marginBottom: 20,
 					marginTop: 20
 				}}
 			>
@@ -297,7 +297,7 @@ const Home = () => {
 		return (
 			<View
 				style={{
-					marginTop: SIZES.padding,
+					marginTop: SIZES.radius,
 					marginHorizontal: SIZES.padding
 				}}
 			>
@@ -340,6 +340,9 @@ const Home = () => {
 				flex: 1
 			}}
 		>
+			{/* Location */}
+			{renderPickUpFrom()}
+
 			{/* Search */}
 			{renderSearch()}
 
@@ -359,9 +362,8 @@ const Home = () => {
 				ListHeaderComponent={
 					<View>
 						{/* Picking up from */}
-						{renderPickUpFrom()}
 						{/* Clothes Categories */}
-						{renderClothesCategories()}
+						{/* {renderClothesCategories()} */}
 						{/* Popular */}
 						{renderPopularSection()}
 						{/* Recommended */}
