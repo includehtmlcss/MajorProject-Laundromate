@@ -19,6 +19,8 @@ import {
 	dummyData
 } from "../../constants";
 
+import { location } from '../Authentication/SignUp';
+
 const Section = ({ title, onPress, children }) => {
 	return (
 		<View>
@@ -316,7 +318,7 @@ const Home = () => {
 					}}
 				>
 					<Text style={{ ...FONTS.h3 }}>
-						{dummyData.myProfile.address}
+						{location}
 					</Text>
 					<Image
 						source={icons.down_arrow}

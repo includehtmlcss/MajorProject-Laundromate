@@ -15,11 +15,13 @@ import { utils } from '../../utils';
 import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from "react-native";
 
+var location;
 const SignUp = ({ navigation }) => {
 	const [email, setEmail] = React.useState('')
 	const [name, setName] = React.useState('')
 	const [emailError, setEmailError] = React.useState('')
 	const [nameError, setNameError] = React.useState('')
+
 	function isEnableSignUp() {
 		return email != '' && name != '' && emailError == '' && nameError == '' && latitude != 0 && longitude != 0
 	}
@@ -27,6 +29,8 @@ const SignUp = ({ navigation }) => {
 	const [latitude, setLatitude] = React.useState(0);
 	const [longitude, setLongitude] = React.useState(0);
 	const [address, setAddress] = React.useState('Press Get Location')
+
+
 	const requestLocationPermission = async () => {
 		try {
 			const granted = await PermissionsAndroid.request(
@@ -46,24 +50,18 @@ const SignUp = ({ navigation }) => {
 						console.log(position);
 						setLatitude(position.coords.latitude);
 						setLongitude(position.coords.longitude);
-						// 'http://api.positionstack.com/v1/reverse?access_key=fa41560aa421fedc10701fc6bb404c13&query=' + latitude + ',' + longitude
-						// fetch('https://reactnative.dev/movies.json', {
-						// 	method: 'GET',
-						// 	headers: {
-						// 		Accept: 'application/json',
-						// 		'Content-Type': 'application/json'
-						// 	},
-						// }).then((response) => console.log(response.json())).then((json) => console.log(json));
-						async () => fetch('http://api.positionstack.com/v1/reverse?access_key=fa41560aa421fedc10701fc6bb404c13&query=' + latitude + ',' + longitude)
-							.then((response) => response.json())
-							.then((json) => {
-								var str = json.data[0].label;
-								console.log(str);
-								setAddress(str);
-							})
-							.catch((error) => {
-								console.error(error);
-							});
+						setTimeout(() => {
+							fetch('http://api.positionstack.com/v1/reverse?access_key=fa41560aa421fedc10701fc6bb404c13&query=' + latitude + ',' + longitude)
+								.then((response) => response.json())
+								.then((json) => {
+									var str = json.data[0].label;
+									console.log(str);
+									setAddress(str);
+								})
+								.catch((error) => {
+									console.error(error);
+								});
+						}, 1000);
 					},
 					(error) => {
 						// See error code charts below.
@@ -147,7 +145,7 @@ const SignUp = ({ navigation }) => {
 							flex: 4
 						}}
 					>
-						Location: {address}
+						Location: <Text style={{ color: COLORS.primary, fontWeight: 'bold' }}>{latitude}, {longitude}</Text>{'\n'}{address}
 					</Text>
 					<TextButton
 						label="Get Location"
@@ -173,12 +171,15 @@ const SignUp = ({ navigation }) => {
 						borderRadius: SIZES.radius,
 						backgroundColor: isEnableSignUp() ? COLORS.primary : COLORS.transparentPrimary
 					}}
-					onPress={() => navigation.navigate("Home")}
+					onPress={() => {
+						navigation.navigate("Home");
+						location = address;
+					}}
 				/>
 			</View>
 		</AuthLayout>
 	)
 
 }
-
+export { location };
 export default SignUp;
