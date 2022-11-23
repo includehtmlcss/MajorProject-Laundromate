@@ -50,6 +50,7 @@ const Section = ({ title, onPress, children }) => {
 	)
 }
 
+var laundry;
 const Home = () => {
 
 	const navigation = useNavigation();
@@ -153,7 +154,7 @@ const Home = () => {
 		)
 	}
 
-	// Data
+	// DATA (TO BE FETCHED FROM API)
 
 	const topRatedLaundries = [{
 		id: 1,
@@ -165,7 +166,16 @@ const Home = () => {
 		image: require("../../assets/dummyData/regularwash.png"),
 		rating: 4,
 		latitude: 20.555,
-		longitude: 76.222
+		longitude: 76.222,
+		services: [{
+			id: 1,
+			name: "Dry Clean",
+			price: 100
+		}, {
+			id: 2,
+			name: "Iron & Fold",
+			price: 15
+		}]
 	}, {
 		id: 2,
 		name: "Ramesh Cleaners",
@@ -176,7 +186,16 @@ const Home = () => {
 		image: require("../../assets/dummyData/woolencare.png"),
 		rating: 3.8,
 		latitude: 24.22,
-		longitude: 70.11
+		longitude: 70.11,
+		services: [{
+			id: 1,
+			name: "Steam Ironing",
+			price: 50
+		}, {
+			id: 2,
+			name: "Iron & Fold",
+			price: 12
+		}]
 	}, {
 		id: 3,
 		name: "Cloth Care",
@@ -187,7 +206,16 @@ const Home = () => {
 		image: require("../../assets/dummyData/dryclean.png"),
 		rating: 3.6,
 		latitude: 21.33,
-		longitude: 72.123
+		longitude: 72.123,
+		services: [{
+			id: 1,
+			name: "Steam Ironing",
+			price: 45
+		}, {
+			id: 2,
+			name: "Dry Clean",
+			price: 110
+		}]
 	}];
 
 	const nearbyLaundries = [{
@@ -200,7 +228,16 @@ const Home = () => {
 		image: require("../../assets/dummyData/regularwash.png"),
 		rating: 4,
 		latitude: 20.555,
-		longitude: 76.222
+		longitude: 76.222,
+		services: [{
+			id: 1,
+			name: "Dry Clean",
+			price: 100
+		}, {
+			id: 2,
+			name: "Iron & Fold",
+			price: 15
+		}]
 	}, {
 		id: 2,
 		name: "Ramesh Cleaners",
@@ -211,7 +248,16 @@ const Home = () => {
 		image: require("../../assets/dummyData/woolencare.png"),
 		rating: 3.8,
 		latitude: 24.22,
-		longitude: 70.11
+		longitude: 70.11,
+		services: [{
+			id: 1,
+			name: "Steam Ironing",
+			price: 50
+		}, {
+			id: 2,
+			name: "Iron & Fold",
+			price: 12
+		}]
 	}, {
 		id: 3,
 		name: "Cloth Care",
@@ -222,7 +268,16 @@ const Home = () => {
 		image: require("../../assets/dummyData/dryclean.png"),
 		rating: 3.6,
 		latitude: 21.33,
-		longitude: 72.123
+		longitude: 72.123,
+		services: [{
+			id: 1,
+			name: "Steam Ironing",
+			price: 45
+		}, {
+			id: 2,
+			name: "Dry Clean",
+			price: 110
+		}]
 	}];
 
 	return (
@@ -270,7 +325,11 @@ const Home = () => {
 											marginRight: index == topRatedLaundries.length - 1 ? SIZES.padding : 0
 										}}
 										item={item}
-										onPress={() => console.log("Top Rated Laundry No." + item.id)}
+										onPress={() => {
+											// console.log("Top Rated Laundry No." + item.id)
+											laundry=topRatedLaundries[item.id-1];
+											navigation.navigate("FoodDetail");
+										}}
 									/>
 								)}
 							/>
@@ -303,7 +362,10 @@ const Home = () => {
 											width: 150
 										}}
 										item={item}
-										onPress={() => console.log("Laundry Near Me No." + item.id)}
+										onPress={() => {
+											laundry=nearbyLaundries[item.id-1];
+											navigation.navigate("FoodDetail");
+										}}
 									/>
 								)}
 							/>
@@ -317,4 +379,5 @@ const Home = () => {
 		</View>
 	)
 }
+export {laundry};
 export default Home;

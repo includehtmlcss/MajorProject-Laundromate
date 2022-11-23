@@ -23,8 +23,9 @@ const SignUp = ({ navigation }) => {
 	const [nameError, setNameError] = React.useState('')
 
 	function isEnableSignUp() {
-		return email != '' && name != '' && emailError == '' && nameError == ''
+		// return email != '' && name != '' && emailError == '' && nameError == ''
 		// && latitude != 0 && longitude != 0
+		return true
 	}
 
 	const [latitude, setLatitude] = React.useState(0);

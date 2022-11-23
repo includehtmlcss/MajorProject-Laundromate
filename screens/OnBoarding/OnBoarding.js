@@ -157,8 +157,7 @@ const Onboarding = ({ navigation }) => {
 							}}
 							onPress={() => {
 								navigation.replace("PhoneNumber")
-							}
-							}
+							}}
 						/>
 					</View>
 				}

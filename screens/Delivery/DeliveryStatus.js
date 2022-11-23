@@ -222,7 +222,10 @@ const DeliveryStatus = ({ navigation }) => {
                                 marginRight: SIZES.base,
                                 tintColor: COLORS.white
                             }}
-                            onPress={() => navigation.navigate("Map")}
+                            onPress={() => {
+                                // navigation.navigate("Map")
+                                console.log("Map View")
+                            }}
                         />
 
                     </View>

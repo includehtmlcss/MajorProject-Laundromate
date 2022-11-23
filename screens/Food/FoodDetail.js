@@ -4,26 +4,26 @@ import { View, Text, Image, ScrollView } from 'react-native';
 import { FONTS, COLORS, SIZES, icons, images, dummyData } from '../../constants'
 
 
-import { Header, IconButton, CartQuantityButton, IconLabel
-    , TextButton, LineDivider, Rating, StepperInput } from '../../components';
+import { Header, IconButton, CartQuantityButton, IconLabel, TextButton, LineDivider, Rating, StepperInput } from '../../components';
+import { laundry } from '../Home/Home';
 
 
 const FoodDetail = ({navigation}) => {
-
-    const [foodItem, setFoodItem] = React.useState(dummyData.vegBiryani)
+    console.log(laundry);
+    const [foodItem, setFoodItem] = React.useState(dummyData.regularwash)
 
     const [selectedSize, setSelectedSize] = React.useState("")
     const[qty,setQty ] = React.useState(1)
     function renderHeader() {
         return (
             <Header
-                title="DETAILS"
+                title={laundry.name}
                 containerStyle={{
                     height: 50,
                     paddingHorizontal: SIZES.padding,
                     marginTop: 40,
-                    // alignItems: 'center',
-                    // justifyContent: 'center'
+                    alignItems: 'center',
+                    justifyContent: 'center'
                 }}
                 leftComponent={
                     <IconButton
@@ -42,14 +42,12 @@ const FoodDetail = ({navigation}) => {
                             height: 20,
                             tintColor: COLORS.gray2
                         }}
-                        onPress={() => console.log("Back")}
+                        onPress={() => navigation.goBack()}
                     />
                 }
                 rightComponent={
                     <CartQuantityButton
                         quantity={3}
-
-
                     />
                 }
             />
@@ -93,13 +91,13 @@ const FoodDetail = ({navigation}) => {
                             }}
                         >
                             <Image
-                                source={icons.calories}
+                                source={icons.Times}
                                 style={{
                                     width: 30,
                                     height: 30,
                                 }}
                             />
-                            <Text style={{ ...FONTS.body4, color: COLORS.darkGray2, marginLeft: SIZES.radius }}>{foodItem?.calories} calories</Text>
+                            <Text style={{ ...FONTS.body4, color: COLORS.darkGray2, marginLeft: SIZES.base }}>{foodItem?.Times} Times</Text>
 
                         </View>
 
@@ -116,7 +114,7 @@ const FoodDetail = ({navigation}) => {
 
                     {/* Food Image */}
                     <Image
-                        source={foodItem?.image}
+                        source={laundry?.image}
                         resizeMode="contain"
                         style={{
                             height: 170,
@@ -135,7 +133,7 @@ const FoodDetail = ({navigation}) => {
                     <Text
                         style={{ ...FONTS.h1 }}
                     >
-                        {foodItem?.name}
+                        {laundry?.name}
                     </Text>
 
                     <Text
@@ -216,7 +214,7 @@ const FoodDetail = ({navigation}) => {
                             }}
                         >
 
-                            {dummyData.sizes.map((size, index) => {
+                            {dummyData.sizes.map((item, index) => {
                                 return (
                                     <TextButton
                                         key={`Sizes-${index}`}
@@ -224,10 +222,10 @@ const FoodDetail = ({navigation}) => {
                                             height: 55,
                                             width: 55,
                                             margin: SIZES.base,
-                                            borderRadius: SIZES,
+                                            borderRadius: SIZES.base,
                                             borderWidth: 1,
                                             borderColor: selectedSize == item.id ? COLORS.primary : COLORS.gray2,
-                                            radius,
+                                            // radius,
                                             backgroundColor: selectedSize == item.id ? COLORS.primary : null
                                         }}
                                         label={item.label}
@@ -338,9 +336,9 @@ const FoodDetail = ({navigation}) => {
 
     return (
         <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-            <Text>FoodDetail</Text>
+            {/* <Text>FoodDetail</Text> */}
             {/*Header*/}
-            {renderHeader}
+            {renderHeader()}
 
             {/*Body*/}
             <ScrollView>
