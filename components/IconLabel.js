@@ -9,8 +9,8 @@ const IconLabel = ({ containerStyle, icon, iconStyle, label, labelStyle }) => {
         <View
             style={{
                 flexDirection: 'row',
-                paddingVertical: SIZES.base,
-                paddingBottom: SIZES.radius,
+                paddingVertical: SIZES.radius,
+                paddingHorizontal: SIZES.radius,
                 borderRadius: SIZES.radius,
                 ...containerStyle
             }}
@@ -21,7 +21,7 @@ const IconLabel = ({ containerStyle, icon, iconStyle, label, labelStyle }) => {
                 style={{
                     width: 20,
                     height: 20,
-                    // tintColor: COLORS.white,
+                    tintColor: COLORS.white,
                     ...iconStyle
                 }}
             />

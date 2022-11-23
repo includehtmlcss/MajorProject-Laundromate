@@ -40,7 +40,7 @@ const CartQuantityButton = ({ containerStyle, iconStyle, quantity, onPress }) =>
                     backgroundColor: COLORS.primary
                 }}
             >
-                <Text style={{ color: COLORS.primary, ...FONTS.body5, lineHeight: 0, fontSize: 50 }}>{quantity}</Text>
+                <Text style={{ color: COLORS.white, ...FONTS.body5, fontSize: 10, marginTop: -4 }}>{quantity}</Text>
 
             </View>
 

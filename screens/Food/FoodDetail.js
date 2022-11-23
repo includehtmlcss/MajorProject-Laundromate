@@ -6,359 +6,431 @@ import { FONTS, COLORS, SIZES, icons, images, dummyData } from '../../constants'
 
 import { Header, IconButton, CartQuantityButton, IconLabel, TextButton, LineDivider, Rating, StepperInput } from '../../components';
 import { laundry } from '../Home/Home';
+import { userLatitude, userLongitude } from '../Authentication/SignUp';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-const FoodDetail = ({navigation}) => {
-    console.log(laundry);
-    const [foodItem, setFoodItem] = React.useState(dummyData.regularwash)
+const FoodDetail = ({ navigation }) => {
+	console.log(laundry);
+	const [foodItem, setFoodItem] = React.useState(dummyData.regularwash)
 
-    const [selectedSize, setSelectedSize] = React.useState("")
-    const[qty,setQty ] = React.useState(1)
-    function renderHeader() {
-        return (
-            <Header
-                title={laundry.name}
-                containerStyle={{
-                    height: 50,
-                    paddingHorizontal: SIZES.padding,
-                    marginTop: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}
-                leftComponent={
-                    <IconButton
-                        icon={icons.back}
-                        containerStyle={{
-                            width: 40,
-                            height: 40,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            borderRadius: SIZES.radius,
-                            borderWidth: 1,
-                            borderColor: COLORS.gray2
-                        }}
-                        iconStyle={{
-                            width: 20,
-                            height: 20,
-                            tintColor: COLORS.gray2
-                        }}
-                        onPress={() => navigation.goBack()}
-                    />
-                }
-                rightComponent={
-                    <CartQuantityButton
-                        quantity={3}
-                    />
-                }
-            />
-        )
+	const [selectedSize, setSelectedSize] = React.useState("")
+	const [qty, setQty] = React.useState(1)
+	function renderHeader() {
+		return (
+			<Header
+				title={laundry.name}
+				containerStyle={{
+					height: 50,
+					paddingHorizontal: SIZES.padding,
+					marginTop: 25,
+					alignItems: 'center',
+					justifyContent: 'center'
+				}}
+				leftComponent={
+					<IconButton
+						icon={icons.back}
+						containerStyle={{
+							width: 40,
+							height: 40,
+							alignItems: 'center',
+							justifyContent: 'center',
+							borderRadius: SIZES.radius,
+							borderWidth: 1,
+							borderColor: COLORS.gray2
+						}}
+						iconStyle={{
+							width: 20,
+							height: 20,
+							tintColor: COLORS.gray2
+						}}
+						onPress={() => navigation.goBack()}
+					/>
+				}
+				rightComponent={
+					<CartQuantityButton
+						quantity={3}
+					/>
+				}
+			/>
+		)
 
-    }
+	}
 
-    function renderDetails() {
-        return (
-            <View
-                style={{
-                    marginTop: SIZES.radius,
-                    marginBottom: SIZES.padding,
-                    paddingHorizontal: SIZES.padding
-                }}
-            >
+	const cartArr = [];
+	for (let i = 0; i < laundry.services.length; i++) {
+		cartArr.push(
+			<View
+				style={{
+					flexDirection: 'row',
+					alignItems: 'center',
+					justifyContent: 'space-between',
+					marginBottom: SIZES.padding
+				}}
+				key={laundry.services[i].id}
+			>
+				<View
+					style={{
+						flexDirection: 'row',
+						alignItems: 'center'
+					}}
+				>
+					<View
+						style={{
+							height: 60,
+							width: 60,
+							borderRadius: SIZES.radius,
+							backgroundColor: COLORS.lightGray2,
+							marginRight: SIZES.padding - 5,
+							alignItems: 'center',
+							justifyContent: 'center',
+							paddingTop: 8
+						}}
+					>
+						<Image
+							source={laundry.services[i].img}
+							resizeMode="contain"
+							style={{
+								height: 60,
+								tintColor: COLORS.darkGray,
+							}}
+						/>
+					</View>
+					<View
+						style={{
+							flexDirection: 'column',
+							alignItems: 'flex-start'
+						}}
+					>
+						<Text
+							style={{
+								...FONTS.body2,
+								fontSize: SIZES.body4 + 4
+							}}
+						>
+							{laundry.services[i].name}
+						</Text>
+						<Text
+							style={{
+								...FONTS.body4,
+								marginTop: -3,
+								color: COLORS.darkGray
+							}}
+						>
+							₹{laundry.services[i].price} / pc
+						</Text>
+					</View>
+				</View>
+				<View
+					style={{
+						flexDirection: 'row',
+						alignItems: 'center'
+					}}
+				>
+					<TouchableOpacity
+						style={{
+							height: 33,
+							width: 33,
+							borderTopLeftRadius: SIZES.radius - 4,
+							borderBottomLeftRadius: SIZES.radius - 4,
+							borderColor: COLORS.darkGray2,
+							borderWidth: 1,
+							borderRightWidth: 0,
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+						onPress={() => console.log("Minus")}
+					>
+						<Image
+							source={icons.minus}
+							style={{
+								width: 15,
+								height: 15,
+								tintColor: COLORS.darkGray2
+							}}
+						/>
+					</TouchableOpacity>
+					<View
+						style={{
+							height: 33,
+							width: 33,
+							borderColor: COLORS.primary,
+							backgroundColor: COLORS.primary,
+							borderWidth: 1,
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+					>
+						<Text
+							style={{
+								...FONTS.h3,
+								color: COLORS.white
+							}}
+						>
+							1
+						</Text>
+					</View>
+					<TouchableOpacity
+						style={{
+							height: 33,
+							width: 33,
+							borderTopRightRadius: SIZES.radius - 4,
+							borderBottomRightRadius: SIZES.radius - 4,
+							borderColor: COLORS.darkGray2,
+							borderWidth: 1,
+							borderLeftWidth: 0,
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+						onPress={() => console.log("Plus")}
+					>
+						<Image
+							source={icons.plus}
+							style={{
+								width: 15,
+								height: 15,
+								tintColor: COLORS.darkGray2
+							}}
+						/>
+					</TouchableOpacity>
+				</View>
+			</View>
+		);
+	}
 
-                {/* Food Card */}
+	function renderDetails() {
+		return (
+			<View
+				style={{
+					marginTop: 20,
+					marginBottom: SIZES.padding,
+					paddingHorizontal: SIZES.padding
+				}}
+			>
+				{/* Food Card */}
+				<View
+					style={{
+						height: 190,
+						borderRadius: 15,
+						backgroundColor: COLORS.primary,
+					}}
+				>
+					{/* Calories & Favourite */}
+					<View
+						style={{
+							flexDirection: 'row',
+							justifyContent: 'space-between',
+							paddingHorizontal: SIZES.radius,
+							marginTop: SIZES.base
+						}}
+					>
+						{/* Calories */}
+						<View
+							style={{
+								flexDirection: 'row',
+							}}
+						>
+							<Image
+								source={icons.Times}
+								style={{
+									width: 30,
+									height: 30,
+									tintColor: COLORS.white
+								}}
+							/>
+							<Text style={{ ...FONTS.body4, color: COLORS.white, marginLeft: SIZES.base - 5 }}>{laundry.Times} Times</Text>
+						</View>
+						{/* Favourite */}
+						<View
+							style={{
+								flexDirection: 'row',
+							}}
+						>
+							<Image
+								source={icons.rating}
+								style={{
+									width: 18,
+									height: 18,
+									tintColor: COLORS.white
+								}}
+							/>
+							<Text style={{ ...FONTS.body4, color: COLORS.white, marginLeft: SIZES.base - 3 }}>Rated {laundry.rating}/5</Text>
+						</View>
+					</View>
 
-                <View
-                    style={{
-                        height: 190,
-                        borderRadius: 15,
-                        backgroundColor: COLORS.lightGray2,
-                    }}
-                >
-                    {/* Calories & Favourite */}
-                    <View
+					{/* Food Image */}
+					<Image
+						source={laundry?.image}
+						resizeMode="contain"
+						style={{
+							height: 170,
+							width: "100%",
+							marginTop: -8,
+							tintColor: COLORS.white
+						}}
+					/>
 
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            paddingHorizontal: SIZES.radius,
-                            marginTop: SIZES.base
-                        }}
-                    >
-                        {/* Calories */}
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                            }}
-                        >
-                            <Image
-                                source={icons.Times}
-                                style={{
-                                    width: 30,
-                                    height: 30,
-                                }}
-                            />
-                            <Text style={{ ...FONTS.body4, color: COLORS.darkGray2, marginLeft: SIZES.base }}>{foodItem?.Times} Times</Text>
+				</View>
+				{/* Food Info */}
+				<View
+					style={{
+						marginTop: SIZES.padding,
+					}}
+				>
+					{/* Name & Address */}
+					<Text
+						style={{ ...FONTS.h1, fontSize: SIZES.h1 - 4 }}
+					>
+						{laundry.name}
+					</Text>
+					<Text
+						style={{
+							marginTop: SIZES.base,
+							color: COLORS.darkGray,
+							textAlign: 'justify',
+							...FONTS.body3
+						}}
+					>
+						{laundry.location + ", Indore"}
+					</Text>
 
-                        </View>
+					{/* Ratings, Duration & Distance */}
+					<View
+						style={{
+							flexDirection: 'row',
+							marginTop: SIZES.padding
+						}}
+					>
+						{/* Ratings */}
+						<IconLabel
+							containerStyle={{
+								backgroundColor: COLORS.primary
+							}}
+							icon={icons.rating}
+							label={laundry.rating + "/5"}
+							labelStyle={{
+								color: COLORS.white
+							}}
+						/>
 
-                        {/* Favourite */}
-                        <Image
-                            source={icons.love}
-                            style={{
-                                width: 20,
-                                height: 20,
-                                tintColor: foodItem?.isFavourite ? COLORS.primary : COLORS.gray
-                            }}
-                        />
-                    </View>
+						{/* Duration */}
+						<IconLabel
+							containerStyle={{
+								marginLeft: SIZES.radius + 5,
+								paddingHorizontal: 0
+								// backgroundColor: COLORS.primary
+							}}
+							icon={icons.clock}
+							iconStyle={{
+								tintColor: COLORS.black
+							}}
+							label={laundry.eta + " days"}
+						/>
 
-                    {/* Food Image */}
-                    <Image
-                        source={laundry?.image}
-                        resizeMode="contain"
-                        style={{
-                            height: 170,
-                            width: "100%"
-                        }}
-                    />
+						{/* Shipping */}
+						<IconLabel
+							containerStyle={{
+								marginLeft: SIZES.radius + 5,
+								paddingHorizontal: 0,
+								// backgroundColor: COLORS.primary
+							}}
+							icon={icons.location}
+							iconStyle={{
+								tintColor: COLORS.black
+							}}
+							label={Math.round(
+								(Math.sqrt(
+									Math.pow(laundry.longitude - userLongitude, 2) +
+									Math.pow(laundry.latitude - userLatitude, 2)
+								)) * 100
+							) / 100 + " Kms"}
+						/>
 
-                </View>
-                {/* Food Info */}
-                <View
-                    style={{
-                        marginTop: SIZES.padding,
-                    }}
-                >
-                    {/* Name & Description */}
-                    <Text
-                        style={{ ...FONTS.h1 }}
-                    >
-                        {laundry?.name}
-                    </Text>
+					</View>
 
-                    <Text
-                        style={{
-                            marginTop: SIZES.base,
-                            color: COLORS.darkGray,
-                            textAlign: 'justify',
-                            ...FONTS.body3
-                        }}
-                    >
-                        {foodItem?.description}
-                    </Text>
+					<Text
+						style={{
+							...FONTS.h3,
+							marginTop: SIZES.padding
+						}}
+					>
+						Choose From Our Services
+					</Text>
 
-                    {/* Ratings, Duration & Shipping */}
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            marginTop: SIZES.padding
-                        }}
-                    >
-                        {/* Ratings */}
-                        <IconLabel
-                            containerStyle={{
-                                backgroundColor: COLORS.primary
-                            }}
-                            icon={icons.star}
-                            label="4.5"
-                            labelStyle={{
-                                color: COLORS.white
-                            }}
-                        />
+					{/* Laundry Services Cart */}
+					<View
+						style={{
+							marginTop: SIZES.padding
+						}}
+					>
+						{cartArr}
+					</View>
+				</View>
+			</View>
+		)
+	}
 
-                        {/* Duration */}
-                        <IconLabel
-                            containerStyle={{
-                                marginLeft: SIZES.radius,
-                                paddingHorizontal: 0
-                                // backgroundColor: COLORS.primary
-                            }}
-                            icon={icons.clock}
-                            iconStyle={{
-                                tintColor: COLORS.black
-                            }}
-                            label="30 Mins"
-                        />
+	function renderFooter() {
+		return (
+			<View
+				style={{
+					flexDirection: 'row',
+					height: 120,
+					alignItems: 'center',
+					paddingHorizontal: SIZES.padding,
+					paddingBottom: SIZES.radius
+				}}
+			>
+				{/* StepperInput */}
+				<StepperInput
+					value={qty}
+					onAdd={() => setQty(qty + 1)}
+					onMinus={() => {
+						if (qty > 1) {
+							setQty(qty - 1)
+						}
+					}}
+				/>
 
-                        {/* Shipping */}
-                        <IconLabel
-                            containerStyle={{
-                                marginLeft: SIZES.radius,
-                                paddingHorizontal: 0
-                                // backgroundColor: COLORS.primary
-                            }}
-                            icon={icons.dollar}
-                            iconStyle={{
-                                tintColor: COLORS.black
-                            }}
-                            label="Free Shiping"
-                        />
+				{/* TextButton */}
+				<TextButton
+					buttonContainerStyle={{
+						flex: 1,
+						flexDirection: 'row',
+						height: 60,
+						marginLeft: SIZES.radius,
+						paddingHorizontal: SIZES.radius,
+						borderRadius: SIZES.radius,
+						backgroundColor: COLORS.primary
+					}}
+					label="Buy Now"
+					label2="$15.99"
+					onPress={() => navigation.navigate("MyCart")}
+				></TextButton>
+			</View>
+		)
+	}
 
-                    </View>
+	return (
+		<View style={{ flex: 1, backgroundColor: COLORS.white }}>
+			{/*Header*/}
+			{renderHeader()}
 
-                    {/* Sizes */}
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            marginTop: SIZES.padding,
-                            alignItems: 'center'
-                        }}
-                    >
-                        <Text style={{ ...FONTS.h3 }}>Sizes:</Text>
+			{/*Body*/}
+			<ScrollView>
+				{/*Food Detail*/}
+				{renderDetails()}
 
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                marginLeft: SIZES.padding,
-                                flexWrap: 'wrap'
-                            }}
-                        >
+				<LineDivider />
 
-                            {dummyData.sizes.map((item, index) => {
-                                return (
-                                    <TextButton
-                                        key={`Sizes-${index}`}
-                                        buttonContainerStyle={{
-                                            height: 55,
-                                            width: 55,
-                                            margin: SIZES.base,
-                                            borderRadius: SIZES.base,
-                                            borderWidth: 1,
-                                            borderColor: selectedSize == item.id ? COLORS.primary : COLORS.gray2,
-                                            // radius,
-                                            backgroundColor: selectedSize == item.id ? COLORS.primary : null
-                                        }}
-                                        label={item.label}
-                                        labelStyle={{
-                                            color: selectedSize == item.id ? COLORS.white : COLORS.gray2,
-                                            ...FONTS.body2
-                                        }}
-                                        onPress={() => setSelectedSize(item.id)}
-                                    />
-                                )
-                            }
-                            )}
+			</ScrollView>
+			{/*Footer*/}
+			<LineDivider />
 
-                        </View>
+			{renderFooter()}
 
-
-                    </View>
-
-                </View>
-            </View>
-        )
-    }
-
-    function renderRestaurant() {
-        return (
-            <View
-                style={{
-                    flexDirection: 'row',
-                    marginVertical: SIZES.padding,
-                    paddingHorizontal: SIZES.padding,
-                    alignItems: 'center'
-                }}
-            >
-                <Image
-                    source={images.profile}
-                    style={{
-                        width: 50,
-                        height: 50,
-                        borderRadius: SIZES.radius
-                    }}
-                />
-
-                {/* Info */}
-                <View
-                    style={{
-                        flex: 1,
-                        marginLeft: SIZES.radius,
-                        justifyContent: 'center'
-                    }}
-                >
-                    <Text style={{ ...FONTS.h3 }}>ByProgrammers</Text>
-                    <Text style={{ color: COLORS.gray, ...FONTS.body4 }}>1.2 KM away from you</Text>
-
-                </View>
-
-                {/* Ratings */}
-
-                <Rating
-                    rating={4}
-                    iconStyle={{
-                        marginLeft: 3
-                    }}
-                />
-            </View>
-        )
-    }
-    function renderFooter() {
-        return (
-            <View
-                style={{
-                    flexDirection: 'row',
-                    height: 120,
-                    alignItems: 'center',
-                    paddingHorizontal: SIZES.padding,
-                    paddingBottom: SIZES.radius
-                }}
-            >
-                {/* StepperInput */}
-                <StepperInput
-                value = {qty}
-                onAdd ={ () => setQty(qty+1)}
-                onMinus ={ () => {
-                    if(qty>1){
-                        setQty(qty-1)
-                    }    
-                }}
-                />
-                
-                {/* TextButton */}
-                <TextButton 
-                    buttonContainerStyle={{
-                        flex:1,
-                        flexDirection: 'row',
-                        height:60,
-                        marginLeft:SIZES.radius,
-                        paddingHorizontal:SIZES.radius,
-                        borderRadius:SIZES.radius,
-                        backgroundColor:COLORS.primary
-                    }}
-                    label="Buy Now"
-                    label2="$15.99"
-                    onPress = {() => navigation.navigate("MyCart")}
-                ></TextButton>
-            </View>
-        )
-    }
-
-
-    return (
-        <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-            {/* <Text>FoodDetail</Text> */}
-            {/*Header*/}
-            {renderHeader()}
-
-            {/*Body*/}
-            <ScrollView>
-                {/*Food Detail*/}
-                {renderDetails()}
-
-                <LineDivider />
-
-                {/* Restaurant */}
-
-                {renderRestaurant()}
-
-            </ScrollView>
-            {/*Footer*/}
-            <LineDivider />
-
-            {renderFooter()}
-
-        </View>
-    )
+		</View>
+	)
 }
 
 export default FoodDetail;

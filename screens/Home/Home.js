@@ -159,11 +159,11 @@ const Home = () => {
 	const topRatedLaundries = [{
 		id: 1,
 		name: "Suresh Laundry",
-		description: "Starting at",
+		location: "Vijay Nagar",
 		price: "7/item",
-		Times: 78,
+		Times: 79,
 		isFavourite: true,
-		image: require("../../assets/dummyData/regularwash.png"),
+		image: require("../../assets/dummyData/dryclean.png"),
 		rating: 4,
 		latitude: 20.555,
 		longitude: 76.222,
@@ -175,11 +175,12 @@ const Home = () => {
 			id: 2,
 			name: "Iron & Fold",
 			price: 15
-		}]
+		}],
+		eta: 2
 	}, {
 		id: 2,
 		name: "Ramesh Cleaners",
-		description: "Starting at",
+		location: "South Tukoganj",
 		price: "7/item",
 		Times: 102,
 		isFavourite: true,
@@ -195,15 +196,16 @@ const Home = () => {
 			id: 2,
 			name: "Iron & Fold",
 			price: 12
-		}]
+		}],
+		eta: 3
 	}, {
 		id: 3,
 		name: "Cloth Care",
-		description: "Starting at",
+		location: "Geeta Bhawan",
 		price: "7/item",
 		Times: 94,
 		isFavourite: true,
-		image: require("../../assets/dummyData/dryclean.png"),
+		image: require("../../assets/dummyData/linenwash.png"),
 		rating: 3.6,
 		latitude: 21.33,
 		longitude: 72.123,
@@ -215,33 +217,42 @@ const Home = () => {
 			id: 2,
 			name: "Dry Clean",
 			price: 110
-		}]
+		}],
+		eta: 1.5
 	}];
 
 	const nearbyLaundries = [{
 		id: 1,
 		name: "Suresh Laundry",
-		description: "Starting at",
+		location: "Vijay Nagar",
 		price: "7/item",
-		Times: 78,
+		Times: 79,
 		isFavourite: true,
-		image: require("../../assets/dummyData/regularwash.png"),
+		image: require("../../assets/dummyData/dryclean.png"),
 		rating: 4,
 		latitude: 20.555,
 		longitude: 76.222,
 		services: [{
 			id: 1,
 			name: "Dry Clean",
+			img: require("../../assets/dummyData/dryclean.png"),
 			price: 100
 		}, {
 			id: 2,
 			name: "Iron & Fold",
+			img: require("../../assets/dummyData/heavysteampress.png"),
 			price: 15
-		}]
+		}, {
+			id: 3,
+			name: "Curtain Cleaning",
+			img: require("../../assets/dummyData/curtaincleaning.png"),
+			price: 120
+		}],
+		eta: 2
 	}, {
 		id: 2,
 		name: "Ramesh Cleaners",
-		description: "Starting at",
+		location: "South Tukoganj",
 		price: "7/item",
 		Times: 102,
 		isFavourite: true,
@@ -257,15 +268,16 @@ const Home = () => {
 			id: 2,
 			name: "Iron & Fold",
 			price: 12
-		}]
+		}],
+		eta: 3
 	}, {
 		id: 3,
 		name: "Cloth Care",
-		description: "Starting at",
+		location: "Geeta Bhawan",
 		price: "7/item",
 		Times: 94,
 		isFavourite: true,
-		image: require("../../assets/dummyData/dryclean.png"),
+		image: require("../../assets/dummyData/linenwash.png"),
 		rating: 3.6,
 		latitude: 21.33,
 		longitude: 72.123,
@@ -277,7 +289,8 @@ const Home = () => {
 			id: 2,
 			name: "Dry Clean",
 			price: 110
-		}]
+		}],
+		eta: 1.5
 	}];
 
 	return (

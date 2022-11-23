@@ -33,6 +33,9 @@ const wallet = require("../assets/icons/wallet.png")
 const help = require("../assets/icons/help.png")
 const cancel = require("../assets/icons/cross.png")
 const rating = require("../assets/icons/rating.png")
+const plus = require("../assets/icons/plus.png")
+const minus = require("../assets/icons/minus.png")
+
 
 export default {
     coupon,
@@ -69,5 +72,7 @@ back,
 mastercard,
 visa,
 paypal,
-clock
+clock,
+plus,
+minus
 }
