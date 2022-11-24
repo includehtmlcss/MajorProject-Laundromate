@@ -154,6 +154,19 @@ const Home = () => {
 		)
 	}
 
+	// const msg = fetch('http://laundromate-env.eba-hhbbzuqp.ap-south-1.elasticbeanstalk.com/', {
+	// 	method: 'GET',
+	// 	headers: {
+	// 		Accept: 'application/json',
+	// 		'Content-Type': 'application/json'
+	// 	},
+	// 	body: JSON.stringify(
+	// 		{
+
+	// 		}
+	// 	)
+	// });
+
 	// DATA (TO BE FETCHED FROM API)
 
 	const topRatedLaundries = [{
@@ -170,11 +183,18 @@ const Home = () => {
 		services: [{
 			id: 1,
 			name: "Dry Clean",
+			img: require("../../assets/dummyData/dryclean.png"),
 			price: 100
 		}, {
 			id: 2,
 			name: "Iron & Fold",
+			img: require("../../assets/dummyData/heavysteampress.png"),
 			price: 15
+		}, {
+			id: 3,
+			name: "Curtain Cleaning",
+			img: require("../../assets/dummyData/curtaincleaning.png"),
+			price: 120
 		}],
 		eta: 2
 	}, {
@@ -190,12 +210,19 @@ const Home = () => {
 		longitude: 70.11,
 		services: [{
 			id: 1,
-			name: "Steam Ironing",
-			price: 50
+			name: "Iron & Fold",
+			img: require("../../assets/dummyData/heavysteampress.png"),
+			price: 10
 		}, {
 			id: 2,
-			name: "Iron & Fold",
-			price: 12
+			name: "Dry Clean",
+			img: require("../../assets/dummyData/dryclean.png"),
+			price: 110
+		}, {
+			id: 3,
+			name: "Linen Wash",
+			img: require("../../assets/dummyData/linenwash.png"),
+			price: 120
 		}],
 		eta: 3
 	}, {
@@ -211,12 +238,19 @@ const Home = () => {
 		longitude: 72.123,
 		services: [{
 			id: 1,
-			name: "Steam Ironing",
-			price: 45
+			name: "Curtain Cleaning",
+			img: require("../../assets/dummyData/curtaincleaning.png"),
+			price: 100
 		}, {
 			id: 2,
+			name: "Iron & Fold",
+			img: require("../../assets/dummyData/heavysteampress.png"),
+			price: 15
+		}, {
+			id: 3,
 			name: "Dry Clean",
-			price: 110
+			img: require("../../assets/dummyData/dryclean.png"),
+			price: 120
 		}],
 		eta: 1.5
 	}];
@@ -262,12 +296,19 @@ const Home = () => {
 		longitude: 70.11,
 		services: [{
 			id: 1,
-			name: "Steam Ironing",
-			price: 50
+			name: "Iron & Fold",
+			img: require("../../assets/dummyData/heavysteampress.png"),
+			price: 10
 		}, {
 			id: 2,
-			name: "Iron & Fold",
-			price: 12
+			name: "Dry Clean",
+			img: require("../../assets/dummyData/dryclean.png"),
+			price: 110
+		}, {
+			id: 3,
+			name: "Linen Wash",
+			img: require("../../assets/dummyData/linenwash.png"),
+			price: 120
 		}],
 		eta: 3
 	}, {
@@ -283,12 +324,19 @@ const Home = () => {
 		longitude: 72.123,
 		services: [{
 			id: 1,
-			name: "Steam Ironing",
-			price: 45
+			name: "Curtain Cleaning",
+			img: require("../../assets/dummyData/curtaincleaning.png"),
+			price: 100
 		}, {
 			id: 2,
+			name: "Iron & Fold",
+			img: require("../../assets/dummyData/heavysteampress.png"),
+			price: 15
+		}, {
+			id: 3,
 			name: "Dry Clean",
-			price: 110
+			img: require("../../assets/dummyData/dryclean.png"),
+			price: 120
 		}],
 		eta: 1.5
 	}];
@@ -340,7 +388,7 @@ const Home = () => {
 										item={item}
 										onPress={() => {
 											// console.log("Top Rated Laundry No." + item.id)
-											laundry=topRatedLaundries[item.id-1];
+											laundry = topRatedLaundries[item.id - 1];
 											navigation.navigate("LaundryDetail");
 										}}
 									/>
@@ -376,7 +424,7 @@ const Home = () => {
 										}}
 										item={item}
 										onPress={() => {
-											laundry=nearbyLaundries[item.id-1];
+											laundry = nearbyLaundries[item.id - 1];
 											navigation.navigate("LaundryDetail");
 										}}
 									/>
@@ -392,5 +440,5 @@ const Home = () => {
 		</View>
 	)
 }
-export {laundry};
+export { laundry };
 export default Home;

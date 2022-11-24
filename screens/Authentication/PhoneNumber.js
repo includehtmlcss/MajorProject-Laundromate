@@ -23,8 +23,8 @@ const PhoneNumber = ({ navigation }) => {
     const [phoneNumber, setPhoneNumber] = React.useState("")
     const [phoneNumberError, setPhoneNumberError] = React.useState("")
     function isEnableSendOtp() {
-        // return phoneNumber != "" && phoneNumberError == ""
-        return true
+        return phoneNumber != "" && phoneNumberError == ""
+        // return true
     }
     return (
         <AuthLayout

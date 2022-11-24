@@ -9,12 +9,14 @@ import {
     Header,
     LineDivider,
     TextButton,
-    TextIconButton
+    TextIconButton,
+    IconButton
 } from "../../components";
 
 import {
     FONTS, COLORS, SIZES, icons, constants
 } from "../../constants";
+import { username } from '../Authentication/SignUp';
 
 
 const DeliveryStatus = ({ navigation }) => {
@@ -29,8 +31,35 @@ const DeliveryStatus = ({ navigation }) => {
                 containerStyle={{
                     height: 50,
                     marginHorizontal: SIZES.padding,
-                    marginTop: 40
+                    marginTop: 25
                 }}
+                leftComponent={
+					<IconButton
+						icon={icons.back}
+						containerStyle={{
+							width: 40,
+							height: 40,
+							alignItems: 'center',
+							justifyContent: 'center',
+							borderRadius: SIZES.radius,
+							borderWidth: 1,
+							borderColor: COLORS.gray2
+						}}
+						iconStyle={{
+							width: 20,
+							height: 20,
+							tintColor: COLORS.gray2
+						}}
+						onPress={() => navigation.goBack()}
+					/>
+				}
+				rightComponent={
+					<View
+						style={{
+							width: 40
+						}}
+					/>
+				}
             />
         )
     }
@@ -55,7 +84,7 @@ const DeliveryStatus = ({ navigation }) => {
                         textAlign: 'center',
                         ...FONTS.h2
                     }}
-                >31 November 2022 / 4:00 PM</Text>
+                >27 November 2022{"\n"}4:00 PM</Text>
 
             </View>
         )
@@ -84,7 +113,7 @@ const DeliveryStatus = ({ navigation }) => {
                     }}
                 >
                     <Text style={{ ...FONTS.h3 }}>Track Order</Text>
-                    <Text style={{ color: COLORS.gray, ...FONTS.body3 }}>CHEENA99</Text>
+                    <Text style={{ color: COLORS.gray, ...FONTS.body3 }}>{username}</Text>
 
                 </View>
                 <LineDivider

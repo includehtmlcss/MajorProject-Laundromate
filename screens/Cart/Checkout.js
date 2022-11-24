@@ -188,7 +188,7 @@ const Checkout = ({ navigation, route }) => {
 				{/* Delivery Address */}
 				{renderDeliveryAddr()}
 
-				<Text style={{ ...FONTS.h3, marginTop: SIZES.padding }}>Order Summary</Text>
+				<Text style={{ ...FONTS.h3, marginTop: SIZES.padding }}>Order Summary - {laundry.name}</Text>
 				{renderOrderSummary()}
 
 			</KeyboardAwareScrollView>
