@@ -80,19 +80,19 @@ const PhoneNumber = ({ navigation }) => {
                 }}
                 onPress={() => {
                     number = "+91" + phoneNumber;
-                    // const msg = fetch('http://1e0c-223-236-24-92.ngrok.io/api/v1/sms/send', {
-                    //     method: 'POST',
-                    //     headers: {
-                    //         Accept: 'application/json',
-                    //         'Content-Type': 'application/json'
-                    //     },
-                    //     body: JSON.stringify(
-                    //         {
-                    //             "phoneNumber": number
-                    //         }
-                    //     )
-                    // });
-                    // msg.then((response) => response.json()).then((json) => { console.log(json.message) });
+                    const msg = fetch('http://0593-182-77-67-142.ngrok.io/api/v1/sms/send', {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(
+                            {
+                                "phoneNumber": number
+                            }
+                        )
+                    });
+                    msg.then((response) => response.json()).then((json) => { console.log(json.message) });
                     navigation.navigate("Otp");
                 }}
             />

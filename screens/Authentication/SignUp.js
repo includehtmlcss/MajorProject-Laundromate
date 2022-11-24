@@ -174,7 +174,7 @@ const SignUp = ({ navigation }) => {
 						backgroundColor: isEnableSignUp() ? COLORS.primary : COLORS.transparentPrimary
 					}}
 					onPress={() => {
-						navigation.navigate("Home");
+						navigation.replace("Home");
 						location = address;
 						userLatitude=latitude;
 						userLongitude=longitude;

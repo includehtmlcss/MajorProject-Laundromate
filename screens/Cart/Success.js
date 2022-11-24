@@ -52,7 +52,7 @@ const Success = ({ navigation }) => {
                     borderRadius: SIZES.radius,
                     backgroundColor: COLORS.primary
                 }}
-                onPress={() => navigation.navigate("DeliveryStatus")}
+                onPress={() => navigation.navigate("Home")}
             />
         </View>
     )

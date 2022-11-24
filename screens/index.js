@@ -12,7 +12,7 @@ import SignUp from './Authentication/SignUp';
 import Otp from './Authentication/Otp';
 import ForgotPassword from './Authentication/ForgotPassword';
 // Food
-import FoodDetail from "./Food/FoodDetail"
+import LaundryDetail from "./Laundry/LaundryDetail"
 
 // Cart
 import Checkout from "./Cart/Checkout"
@@ -41,7 +41,7 @@ export {
     SignUp,
     Otp,
     ForgotPassword,
-    FoodDetail,
+    LaundryDetail,
     Checkout,
     MyCart,
     Success,

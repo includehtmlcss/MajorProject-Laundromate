@@ -9,7 +9,7 @@ import {
     SignUp,
     ForgotPassword,
     Otp,
-    FoodDetail,
+    LaundryDetail,
     Checkout,
     MyCart,
     Success,
@@ -81,8 +81,8 @@ const App = () => {
                     />
 
                     <Stack.Screen
-                        name="FoodDetail"
-                        component={FoodDetail}
+                        name="LaundryDetail"
+                        component={LaundryDetail}
                     />
 
                     <Stack.Screen

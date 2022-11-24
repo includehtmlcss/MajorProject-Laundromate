@@ -13,6 +13,7 @@ import { number } from "./PhoneNumber";
 const Otp = ({ navigation }) => {
     const [timer, setTimer] = React.useState(60)
     const [otp, setOtp] = React.useState("")
+    const [isValidOtp, setIsValidOtp] = React.useState(false);
 
     React.useEffect(() => {
         let interval = setInterval(() => {
@@ -91,26 +92,34 @@ const Otp = ({ navigation }) => {
                         backgroundColor: COLORS.primary
                     }}
                     onPress={() => {
-                        // const msg = fetch('http://1e0c-223-236-24-92.ngrok.io/api/v1/sms/validate', {
-                        //     method: 'POST',
-                        //     headers: {
-                        //         Accept: 'application/json',
-                        //         'Content-Type': 'application/json'
-                        //     },
-                        //     body: JSON.stringify(
-                        //         {
-                        //             "phoneNumber": number,
-                        //             "userInputOtp": otp
-                        //         }
-                        //     )
-                        // });
-                        // msg.then((response) => response.json()).then((json) => { console.log(json.message) });
-                        navigation.navigate("SignUp")
-                        console.log(otp);
-                        console.log(number);
+                        const msg = fetch('http://0593-182-77-67-142.ngrok.io/api/v1/sms/validate', {
+                            method: 'POST',
+                            headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(
+                                {
+                                    "phoneNumber": number,
+                                    "userInputOtp": otp
+                                }
+                            )
+                        });
+                        msg.then((response) => {
+                            if (response.headers.get('Content-Length') === "9") {
+                                setIsValidOtp(true);
+                            }
+                        });
+                        setTimeout(() => {
+                            console.log();
+                            console.log(otp);
+                            console.log(number);
+                            console.log(isValidOtp);
+                            if(isValidOtp) {
+                                navigation.replace("SignUp")
+                            }
+                        }, 1000);
                     }}
-
-
                 />
 
                 <View

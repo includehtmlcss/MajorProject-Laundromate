@@ -35,6 +35,7 @@ const cancel = require("../assets/icons/cross.png")
 const rating = require("../assets/icons/rating.png")
 const plus = require("../assets/icons/plus.png")
 const minus = require("../assets/icons/minus.png")
+const location1 = require("../assets/icons/location1.png")
 
 
 export default {
@@ -68,11 +69,12 @@ export default {
     cancel,
     rating,
     apple,
-back,
-mastercard,
-visa,
-paypal,
-clock,
-plus,
-minus
+    back,
+    mastercard,
+    visa,
+    paypal,
+    clock,
+    plus,
+    minus,
+    location1
 }

@@ -341,7 +341,7 @@ const Home = () => {
 										onPress={() => {
 											// console.log("Top Rated Laundry No." + item.id)
 											laundry=topRatedLaundries[item.id-1];
-											navigation.navigate("FoodDetail");
+											navigation.navigate("LaundryDetail");
 										}}
 									/>
 								)}
@@ -377,7 +377,7 @@ const Home = () => {
 										item={item}
 										onPress={() => {
 											laundry=nearbyLaundries[item.id-1];
-											navigation.navigate("FoodDetail");
+											navigation.navigate("LaundryDetail");
 										}}
 									/>
 								)}
